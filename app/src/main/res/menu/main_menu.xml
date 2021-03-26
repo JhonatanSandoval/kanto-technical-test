@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:id="@+id/opt_news"
+        android:icon="@drawable/ic_news"
+        android:title="@string/news"
+        />
+
+    <item
+        android:id="@+id/opt_multimedia"
+        android:icon="@drawable/ic_multimedia"
+        android:title="@string/multimedia"
+        />
+
+    <item
+        android:id="@+id/dates_nav"
+        android:checkable="false"
+        android:checked="false"
+        android:enabled="false"
+        android:title=""
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/opt_notifications"
+        android:icon="@drawable/ic_notifications"
+        android:title="@string/notifications"
+        />
+
+    <item
+        android:id="@+id/opt_profile"
+        android:icon="@drawable/ic_man_user"
+        android:title="@string/profile"
+        />
+
+</menu>
