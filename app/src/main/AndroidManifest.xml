@@ -16,7 +16,10 @@
         android:theme="@style/Theme.KantoTest"
         android:usesCleartextTraffic="true"
         >
-        <activity android:name=".presentation.main.MainActivity">
+        <activity
+            android:name=".presentation.main.MainActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

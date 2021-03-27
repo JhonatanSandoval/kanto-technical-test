@@ -5,4 +5,16 @@
     <string name="multimedia">Multimedia</string>
     <string name="notifications">Notifications</string>
     <string name="profile">Profile</string>
+    <string name="user_avatar">user avatar</string>
+
+    <string name="sang">sang</string> <!-- for "USER sang SONG_NAME" -->
+    <string name="user_sang_x">&lt;b>%1$s&lt;/b> \u0020 sang \u0020 &lt;b>%2$s&lt;/b></string>
+    <string name="preview">preview</string>
+    <string name="settings">Settings</string>
+    <string name="followers">Followers</string>
+    <string name="views">Views</string>
+    <string name="followed">Followed</string>
+    <string name="sing">sing</string>
+    <string name="like">Like</string>
+    <string name="rewind">rewind</string>
 </resources>

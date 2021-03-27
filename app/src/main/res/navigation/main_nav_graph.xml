@@ -15,10 +15,14 @@
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/opt_profile_edit"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slider_in_left"
+            app:popExitAnim="@anim/slider_out_right"
             />
     </fragment>
 
-    <activity
+    <fragment
         android:id="@+id/opt_profile_edit"
         android:name="pro.jsandoval.kantotest.presentation.main.profile.edit.EditProfileFragment"
         android:label="EditProfileFragment"

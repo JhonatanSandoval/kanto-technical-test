@@ -37,6 +37,9 @@ fun Project.addUiUtils() {
     dependencies {
         add("implementation", "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
         add("implementation", "io.coil-kt:coil:0.9.2")
+        add("implementation", "com.google.android.exoplayer:exoplayer-core:2.12.0")
+        add("implementation", "com.google.android.exoplayer:exoplayer-ui:2.12.0")
+        add("implementation", "com.google.android.exoplayer:exoplayer-hls:2.12.0")
     }
 }
 
