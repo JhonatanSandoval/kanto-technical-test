@@ -17,4 +17,14 @@
     <string name="sing">sing</string>
     <string name="like">Like</string>
     <string name="rewind">rewind</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="close">close</string>
+    <string name="back">back</string>
+    <string name="change_photo">Change photo</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_username">Username</string>
+    <string name="at">at</string>
+    <string name="hint_biography">Biography</string>
+    <string name="error_field_name">Fill with a valid name.</string>
+    <string name="error_field_username">Field with a valid username.</string>
 </resources>

@@ -1,4 +1,4 @@
-package pro.jsandoval.kantotest.data
+package pro.jsandoval.kantotest.data.util
 
 data class DataState<T>(
     var data: T? = null,

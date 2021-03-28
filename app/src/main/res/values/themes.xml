@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -18,7 +19,7 @@
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/gsans_regular</item>
         <item name="android:textColor">@color/white</item>
-
+        <item name="android:textCursorDrawable">@drawable/default_cursor</item>
     </style>
 
     <style name="CollapsingToolbarLayoutExpandedTextStyle" parent="Theme.KantoTest">
@@ -32,8 +33,62 @@
     </style>
 
     <style name="CounterData.User.Details" parent="Theme.KantoTest">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/grayLight</item>
     </style>
 
+    <style name="Button.Parent" parent="Widget.MaterialComponents.Button">
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textAppearance">@style/ButtonTextAppearance</item>
+        <item name="elevation">1dp</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">@font/gsans_bold</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Button.Default" parent="Button.Parent">
+        <item name="backgroundTint">@color/color_state_button_default</item>
+        <item name="android:textColor">@color/color_text_state_button_default</item>
+        <item name="shapeAppearance">@style/ShapeAppearance</item>
+        <item name="rippleColor">@color/grayLight</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="Button.PrimaryLight" parent="Button.Parent">
+        <item name="backgroundTint">@color/color_state_button_primary_light</item>
+        <item name="android:textColor">@color/color_text_state_button_primary_light</item>
+        <item name="shapeAppearance">@style/ShapeAppearance</item>
+        <item name="rippleColor">@color/colorPrimary</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="ShapeAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="ButtonTextAppearance">
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="TextView.Title" parent="Theme.KantoTest">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/gsans_medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextInputEditText.Default" parent="Theme.KantoTest">
+        <item name="android:textSize">17sp</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="colorControlNormal">@color/grayDark</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+    </style>
 </resources>

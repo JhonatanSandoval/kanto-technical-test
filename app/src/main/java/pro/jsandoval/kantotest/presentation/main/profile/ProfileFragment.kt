@@ -1,6 +1,7 @@
 package pro.jsandoval.kantotest.presentation.main.profile
 
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import pro.jsandoval.kantotest.R
 import pro.jsandoval.kantotest.databinding.FragmentProfileBinding
 import pro.jsandoval.kantotest.domain.model.Record
+import pro.jsandoval.kantotest.presentation.main.MainViewModel
 import pro.jsandoval.kantotest.presentation.main.profile.records.RecordsAdapter
 import pro.jsandoval.kantotest.util.base.BaseFragment
 import pro.jsandoval.kantotest.util.ext.startAlphaAnimation
@@ -22,11 +24,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 
     private val recordsAdapter by lazy { RecordsAdapter() }
     private val viewModel: ProfileViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     private var isTitleVisible = false
 
     override fun init() {
-        binding.ivSettings.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment) }
+        binding.layoutContentHeader.editProfile.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment) }
         setupCollapsingToolbar()
         setupRecordsList()
     }
@@ -68,7 +71,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     }
 
     override fun initViewModel() {
-        viewModel.userDataEvent.observeNotNull { user -> binding.user = user }
+        mainViewModel.userDataEvent.observe { user -> binding.user = user }
         viewModel.recordsDataEvent.observeNotNull(this::handleRecordsList)
     }
 

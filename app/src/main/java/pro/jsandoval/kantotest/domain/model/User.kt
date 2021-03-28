@@ -10,6 +10,9 @@ data class User(
     var followed: Int = 0,
     var views: Int = 0
 ) {
+
+    fun isHaveBiography(): Boolean = biography.isNotEmpty()
+
     companion object {
         fun user(block: User.() -> Unit): User = User().apply(block)
     }

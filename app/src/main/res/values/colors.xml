@@ -10,9 +10,10 @@
 
     <color name="colorPrimary">@color/background</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorPrimaryLight">#222233</color>
+    <color name="colorAccent">#00C5CD</color>
 
-    <color name="bottomNavSelected">#00C5CD</color>
+    <color name="bottomNavSelected">@color/colorAccent</color>
     <color name="bottomNavUnselected">#DEDEDE</color>
     <color name="bottomRippleColor">#9B966EFE</color>
 

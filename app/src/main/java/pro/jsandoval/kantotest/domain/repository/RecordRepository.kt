@@ -1,11 +1,13 @@
 package pro.jsandoval.kantotest.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import pro.jsandoval.kantotest.data.DataState
+import pro.jsandoval.kantotest.data.util.DataState
 import pro.jsandoval.kantotest.domain.model.Record
 
 interface RecordRepository {
 
-    fun getRecords(): Flow<DataState<List<Record>>>
+    suspend fun fetchRecords(): Flow<DataState<Boolean>>
+
+    suspend fun getRecords(): Flow<List<Record>>
 
 }

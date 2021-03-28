@@ -1,5 +1,6 @@
 package pro.jsandoval.kantotest.presentation.main
 
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -12,6 +13,7 @@ import pro.jsandoval.kantotest.util.base.BaseActivity
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
+    private val viewModel: MainViewModel by viewModels()
     private val navController: NavController by lazy { findNavController(R.id.fragmentContainer) }
 
     override fun init() {
@@ -27,10 +29,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavView.isVisible = when (destination.id) {
+            val shouldShowBottomMenu = when (destination.id) {
                 R.id.opt_profile_edit -> false
                 else -> true
             }
+            binding.bottomNavView.isVisible = shouldShowBottomMenu
+            binding.fabSign.isVisible = shouldShowBottomMenu
         }
     }
 
@@ -38,6 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun initViewModel() {
         // do something, or nothing
+        viewModel.loadCurrentUser()
     }
 
 }

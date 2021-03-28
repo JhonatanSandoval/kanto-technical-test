@@ -1,34 +1,27 @@
 package pro.jsandoval.kantotest
 
+import android.util.Log
+import androidx.hilt.work.HiltWorkerFactory
 import androidx.multidex.MultiDexApplication
+import androidx.work.Configuration
 import coil.Coil
 import coil.ImageLoader
 import coil.util.CoilUtils
-import com.google.android.exoplayer2.database.DatabaseProvider
-import com.google.android.exoplayer2.database.ExoDatabaseProvider
-import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
-import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import dagger.hilt.android.HiltAndroidApp
 import okhttp3.OkHttpClient
 import pro.jsandoval.kantotest.util.core.TimberFactory
+import javax.inject.Inject
 
 @HiltAndroidApp
-class App : MultiDexApplication() {
+class App : MultiDexApplication(), Configuration.Provider {
+
+    @Inject lateinit var workerFactory: HiltWorkerFactory
 
     override fun onCreate() {
         super.onCreate()
 
         initDebug()
         initCoil()
-        createSimpleVideoCache()
-    }
-
-    private fun createSimpleVideoCache() {
-        val leastRecentlyUsedCacheEvictor = LeastRecentlyUsedCacheEvictor(90 * 1024 * 1024)
-        val databaseProvider: DatabaseProvider = ExoDatabaseProvider(this)
-        if (simpleVideoCache == null) {
-            simpleVideoCache = SimpleCache(cacheDir, leastRecentlyUsedCacheEvictor, databaseProvider)
-        }
     }
 
     private fun initDebug() {
@@ -48,8 +41,12 @@ class App : MultiDexApplication() {
         }
     }
 
-    companion object {
-        var simpleVideoCache: SimpleCache? = null
+    override fun getWorkManagerConfiguration(): Configuration {
+        return Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .setMinimumLoggingLevel(Log.INFO)
+            .build()
     }
+
 
 }

@@ -8,6 +8,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="user"
             type="pro.jsandoval.kantotest.domain.model.User"
@@ -60,13 +62,23 @@
             android:text="@{user.biography}"
             android:textColor="@color/grayLight"
             android:textSize="12sp"
+            android:visibility="@{user.isHaveBiography() ? View.VISIBLE : View.GONE}"
             tools:text="Soy un super artista"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/editProfile"
+            style="@style/Button.Default"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/edit_profile"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/content_profile_header_details_background"
             android:baselineAligned="false"
             android:orientation="horizontal"

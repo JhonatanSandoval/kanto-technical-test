@@ -1,8 +1,21 @@
 package pro.jsandoval.kantotest.data.repository
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import pro.jsandoval.kantotest.data.DataState
+import kotlinx.coroutines.flow.map
+import pro.jsandoval.kantotest.data.local.room.KantoTestDatabase
+import pro.jsandoval.kantotest.data.local.room.dao.RecordDao
+import pro.jsandoval.kantotest.data.local.room.entity.RecordEntity
+import pro.jsandoval.kantotest.data.mapper.toEntity
+import pro.jsandoval.kantotest.data.mapper.toModel
+import pro.jsandoval.kantotest.data.remote.Api
+import pro.jsandoval.kantotest.data.remote.RecordResponse
+import pro.jsandoval.kantotest.data.util.ApiResponseHandler
+import pro.jsandoval.kantotest.data.util.CacheResponseHandler
+import pro.jsandoval.kantotest.data.util.DataState
+import pro.jsandoval.kantotest.data.util.safeApiCall
+import pro.jsandoval.kantotest.data.util.safeCacheCall
 import pro.jsandoval.kantotest.domain.model.Record
 import pro.jsandoval.kantotest.domain.model.Record.Companion.record
 import pro.jsandoval.kantotest.domain.model.User.Companion.user
@@ -12,13 +25,35 @@ import javax.inject.Singleton
 
 @Singleton
 class RecordRepositoryImpl @Inject constructor(
-
+    private val api: Api,
+    private val database: KantoTestDatabase
 ) : RecordRepository {
 
-    override fun getRecords(): Flow<DataState<List<Record>>> = flow {
-        emit(DataState.data(data = mock_recordList()))
+    private val recordDao: RecordDao by lazy { database.recordDao() }
+
+    override suspend fun fetchRecords(): Flow<DataState<Boolean>> = flow {
+        emit(DataState.loading(true))
+        val apiCall = safeApiCall { api.getRecordList() }
+        emit(
+            object : ApiResponseHandler<Boolean, List<RecordResponse>>(response = apiCall) {
+                override suspend fun handleSuccess(resultObj: List<RecordResponse>): DataState<Boolean> {
+                    recordDao.delete()
+                    recordDao.insert(resultObj.map { it.toEntity() })
+                    return DataState.data(data = true)
+                }
+            }.getResult()
+        )
     }
 
+    override suspend fun getRecords(): Flow<List<Record>> = flow {
+        recordDao.getRecords().collect { entityList ->
+            emit(entityList.map { it.toModel() })
+        }
+    }
+
+    /**
+     * Before api integration:
+     */
     private fun mock_recordList(): List<Record> {
         return listOf(
             record {
