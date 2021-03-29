@@ -24,4 +24,8 @@ class ProfileViewModel @ViewModelInject constructor(
         recordRepository.getRecords().collect { records -> recordsDataEvent.postValue(records) }
     }
 
+    fun likeRecord(record: Record) = launch {
+        recordRepository.likeRecord(record, record.likedByMe.not())
+    }
+
 }

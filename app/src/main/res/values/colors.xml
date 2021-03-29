@@ -24,4 +24,10 @@
     <color name="background">#0F0F1C</color>
     <color name="recordBackground">#252525</color>
     <color name="blackOpacity">#74000000</color>
+
+    <color name="mini_avatar_inner_border">#3D3D3D</color>
+    <color name="avatar_inner_border">#A07DF6</color>
+    <color name="avatar_outer_border">#7A47F2</color>
+
+    <color name="liked">#F2173B</color>
 </resources>

@@ -22,7 +22,7 @@ import kotlin.math.abs
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
 
-    private val recordsAdapter by lazy { RecordsAdapter() }
+    private val recordsAdapter by lazy { RecordsAdapter(viewModel) }
     private val viewModel: ProfileViewModel by viewModels()
     private val mainViewModel: MainViewModel by activityViewModels()
 
@@ -43,6 +43,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             }
         })
         recyclerView.adapter = recordsAdapter
+        recyclerView.itemAnimator = null
     }
 
     private fun setupCollapsingToolbar() {
@@ -76,8 +77,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     }
 
     private fun handleRecordsList(records: List<Record>) {
-        recordsAdapter.submitList(records)
-        if (records.isNotEmpty()) binding.rvRecords.scrollToPosition(0)
+        recordsAdapter.submitList(records.toMutableList())
     }
 
     override fun onPause() {

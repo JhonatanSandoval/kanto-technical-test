@@ -47,7 +47,6 @@ class MainViewModel @ViewModelInject constructor(
                     // just for combine call
                 }
             }
-
         }
     }
 

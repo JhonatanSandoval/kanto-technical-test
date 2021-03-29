@@ -11,6 +11,12 @@
             name="record"
             type="pro.jsandoval.kantotest.domain.model.Record"
             />
+
+        <variable
+            name="clickListener"
+            type="pro.jsandoval.kantotest.presentation.main.profile.records.RecordViewHolder.ClickListener"
+            />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,15 +50,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 >
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/avatar"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
                     android:contentDescription="@string/user_avatar"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:loadUserAvatarSimple="@{record.user}"
+                    app:loadUserMiniAvatar="@{record.user}"
+                    app:shapeAppearanceOverlay="@style/ImageView.Circle"
                     tools:srcCompat="@tools:sample/avatars"
                     />
 
@@ -108,6 +117,7 @@
                     android:id="@+id/playerView"
                     android:layout_width="match_parent"
                     android:layout_height="320dp"
+                    android:visibility="gone"
                     app:auto_show="true"
                     app:controller_layout_id="@layout/custom_video_controller"
                     app:fastforward_increment="2000"
@@ -115,6 +125,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/videoProgress"
                     app:repeat_toggle_modes="all"
+                    app:resize_mode="fill"
                     app:rewind_increment="2000"
                     app:show_buffering="always"
                     app:surface_type="texture_view"
@@ -166,15 +177,41 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:drawablePadding="10dp"
-                android:text="@string/like"
-                android:textSize="15sp"
-                app:drawableStartCompat="@drawable/ic_like"
-                />
+                android:layout_marginEnd="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                >
+
+                <ImageView
+                    android:id="@+id/likeImage"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:contentDescription="@string/like"
+                    android:focusable="true"
+                    android:onClick="@{() -> clickListener.likeRecord(record)}"
+                    app:srcCompat="@drawable/ic_like"
+                    />
+
+                <TextView
+                    android:id="@+id/likeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> clickListener.likeRecord(record)}"
+                    android:textSize="15sp"
+                    tools:text="20 Likes"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 

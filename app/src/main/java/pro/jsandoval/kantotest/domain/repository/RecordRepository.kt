@@ -10,4 +10,6 @@ interface RecordRepository {
 
     suspend fun getRecords(): Flow<List<Record>>
 
+    suspend fun likeRecord(record: Record, newStatus: Boolean)
+
 }

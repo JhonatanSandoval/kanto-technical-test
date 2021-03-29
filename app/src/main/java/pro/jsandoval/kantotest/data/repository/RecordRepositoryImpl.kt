@@ -51,6 +51,15 @@ class RecordRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun likeRecord(record: Record, newStatus: Boolean) {
+        recordDao.getSimple(record.id)?.let { entity ->
+            entity.likedByMe = newStatus
+            val newLikes = if (newStatus) (record.likes + 1) else (record.likes - 1)
+            entity.likes = newLikes
+            recordDao.update(entity)
+        }
+    }
+
     /**
      * Before api integration:
      */

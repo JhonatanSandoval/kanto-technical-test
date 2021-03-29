@@ -34,7 +34,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 else -> true
             }
             binding.bottomNavView.isVisible = shouldShowBottomMenu
-            binding.fabSign.isVisible = shouldShowBottomMenu
         }
     }
 

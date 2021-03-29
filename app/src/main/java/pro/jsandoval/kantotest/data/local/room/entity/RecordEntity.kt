@@ -11,7 +11,8 @@ data class RecordEntity(
     @ColumnInfo var song: String = "",
     @ColumnInfo var video: String = "",
     @ColumnInfo var preview: String = "",
-    @ColumnInfo var likes: Int = 0
+    @ColumnInfo var likes: Int = 0,
+    @ColumnInfo var likedByMe: Boolean = false
 ) {
     companion object {
         const val TABLE_NAME = "records"

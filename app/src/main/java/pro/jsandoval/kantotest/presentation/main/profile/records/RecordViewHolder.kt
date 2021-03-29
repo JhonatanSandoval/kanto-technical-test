@@ -4,16 +4,21 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import coil.api.load
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
+import pro.jsandoval.kantotest.R
 import pro.jsandoval.kantotest.databinding.ItemRecordBinding
 import pro.jsandoval.kantotest.domain.model.Record
+import pro.jsandoval.kantotest.presentation.main.profile.ProfileViewModel
 import pro.jsandoval.kantotest.util.ext.inflater
 import pro.jsandoval.kantotest.util.ui.BindingViewHolder
 
 class RecordViewHolder(
     private val parent: ViewGroup,
+    private val recordsAdapter: RecordsAdapter,
+    private val profileViewModel: ProfileViewModel,
     val binding: ItemRecordBinding = ItemRecordBinding.inflate(parent.inflater(), parent, false)
 ) : BindingViewHolder<ItemRecordBinding>(binding.root), VideoPlayerEventListener {
 
@@ -23,7 +28,29 @@ class RecordViewHolder(
 
     fun bindRecord(record: Record) {
         this.record = record
+        binding.record = record
         binding.imagePreview.load(record.preview)
+        binding.clickListener = clickListener
+        checkIfLikedByMe()
+    }
+
+    private val clickListener = object : ClickListener {
+        override fun likeRecord(record: Record) {
+            profileViewModel.likeRecord(record)
+            recordsAdapter.notifyItemChanged(adapterPosition)
+        }
+    }
+
+    private fun checkIfLikedByMe() {
+        val tintColor = if (record.likedByMe) R.color.liked else R.color.grayLight
+        binding.likeImage.setImageResource(if (record.likedByMe) R.drawable.ic_liked else R.drawable.ic_like)
+        binding.likeText.text = getLikeString()
+        binding.likeText.setTextColor(ContextCompat.getColor(parent.context, tintColor))
+    }
+
+    private fun getLikeString(): String {
+        return if (record.likes == 1) parent.context.getString(R.string.x_like, record.likes)
+        else parent.context.getString(R.string.x_likes, record.likes)
     }
 
     override fun onPrePlay(player: SimpleExoPlayer) {
@@ -40,7 +67,6 @@ class RecordViewHolder(
 
     private fun showVideo() {
         binding.playerView.visibility = View.VISIBLE
-        binding.imagePreview.visibility = View.INVISIBLE
         binding.videoProgress.max = simpleExoPlayer.duration.toInt()
     }
 
@@ -54,7 +80,6 @@ class RecordViewHolder(
     private fun hideVideo() {
         binding.videoProgress.progress = 0
         binding.playerView.visibility = View.GONE
-        binding.imagePreview.visibility = View.VISIBLE
     }
 
     override fun onPlay() {
@@ -70,7 +95,10 @@ class RecordViewHolder(
         stop(true)
         setMediaItem(MediaItem.fromUri(record.video))
         prepare()
+    }
 
+    interface ClickListener {
+        fun likeRecord(record: Record)
     }
 
     companion object {

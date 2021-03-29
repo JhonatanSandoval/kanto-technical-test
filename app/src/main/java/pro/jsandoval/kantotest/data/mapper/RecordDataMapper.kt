@@ -17,9 +17,11 @@ fun RecordResponse.toEntity(): RecordEntity = recordEntity {
 
 fun RecordEntity.toModel(): Record = record {
     val entity = this@toModel
+    id = entity.id
     user = entity.user?.toModel()
     song = entity.song
     video = entity.video
     preview = entity.preview
     likes = entity.likes
+    likedByMe = entity.likedByMe
 }
