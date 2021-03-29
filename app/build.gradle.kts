@@ -34,7 +34,10 @@ addLifecycle()
 addHelpers()
 addUiUtils()
 
+// or extra dependencies
 dependencies {
 
-
+    implementation(platform("com.google.firebase:firebase-bom:26.5.0"))
+    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.3")
 }

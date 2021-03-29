@@ -1,5 +1,6 @@
 package pro.jsandoval.kantotest.presentation.main.profile.edit
 
+import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import kotlinx.coroutines.launch
 import pro.jsandoval.kantotest.domain.model.User.Companion.user
@@ -13,7 +14,8 @@ class EditProfileViewModel @ViewModelInject constructor(
 
     val userDetailsSavedDataEvent = SingleLiveEvent<Boolean>()
 
-    fun updateUserDetails(name: String, username: String, biography: String) = launch {
+    fun updateUserDetails(name: String, username: String, biography: String, newAvatarImageUri: Uri? = null) = launch {
+        newAvatarImageUri?.let { userRepository.uploadUserAvatar(filePath = newAvatarImageUri) }
         userRepository.updateCurrentUser(user {
             this.name = name
             this.username = username

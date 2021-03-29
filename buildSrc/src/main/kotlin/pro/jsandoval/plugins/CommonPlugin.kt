@@ -24,6 +24,7 @@ class CommonPlugin : Plugin<Project> {
         plugins.apply("kotlin-parcelize")
         plugins.apply("dagger.hilt.android.plugin")
         plugins.apply("androidx.navigation.safeargs.kotlin")
+        plugins.apply("com.google.gms.google-services")
 
         tasks {
             withType(KotlinCompile::class.java) {
@@ -61,9 +62,20 @@ class CommonPlugin : Plugin<Project> {
                     getByName("debug") {
                         versionNameSuffix = " DEV"
                         buildConfigField("String", "VERSION_NAME", "\"${project.extra.get("versions.name")} DEV\"")
+                        signingConfig = signingConfigs.getByName("debug")
                     }
                     getByName("release") {
                         setProguardFiles(listOf(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-android.txt"))
+                    }
+                }
+
+                signingConfigs {
+                    getByName("debug") {
+                        // or load it from gradle.properties
+                        keyAlias ="kanto-test"
+                        keyPassword ="123456"
+                        storeFile(file("../kanto.debug.jks"))
+                        storePassword = "123456"
                     }
                 }
             }

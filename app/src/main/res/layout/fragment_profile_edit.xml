@@ -71,6 +71,7 @@
             />
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/avatar"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:contentDescription="@string/user_avatar"
@@ -79,7 +80,7 @@
             />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/changePhboto"
+            android:id="@+id/changePhoto"
             style="@style/Button.PrimaryLight"
             android:layout_width="wrap_content"
             android:layout_height="40dp"

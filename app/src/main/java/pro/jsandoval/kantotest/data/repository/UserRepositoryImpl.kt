@@ -1,9 +1,13 @@
 package pro.jsandoval.kantotest.data.repository
 
+import android.net.Uri
+import com.google.firebase.FirebaseException
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.tasks.await
 import pro.jsandoval.kantotest.data.local.room.KantoTestDatabase
 import pro.jsandoval.kantotest.data.local.room.dao.UserDao
 import pro.jsandoval.kantotest.data.mapper.toEntity
@@ -16,6 +20,7 @@ import pro.jsandoval.kantotest.data.util.safeApiCall
 import pro.jsandoval.kantotest.domain.model.User
 import pro.jsandoval.kantotest.domain.model.User.Companion.user
 import pro.jsandoval.kantotest.domain.repository.UserRepository
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -41,7 +46,9 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun get(): Flow<User> = flow {
-        userDao.get().collect { emit(it.toModel()) }
+        userDao.get().collect { entity ->
+            entity?.let { emit(it.toModel()) }
+        }
     }
 
     override suspend fun updateCurrentUser(userDetails: User) {
@@ -50,6 +57,26 @@ class UserRepositoryImpl @Inject constructor(
             entity.username = "@${userDetails.username}"
             entity.biography = userDetails.biography
             userDao.update(entity)
+        }
+    }
+
+    private suspend fun updateUserAvatar(img: String) {
+        userDao.getSimple()?.let { entity ->
+            entity.img = img
+            userDao.update(entity)
+        }
+    }
+
+    override suspend fun uploadUserAvatar(userId: String, filePath: Uri) {
+        val storageReference: StorageReference = FirebaseStorage.getInstance().reference.child("avatars/${userId}")
+        try {
+            storageReference.putFile(filePath).await()
+            val innerTask = storageReference.downloadUrl.await()
+            innerTask?.toString()?.let { imageUrl ->
+                updateUserAvatar(imageUrl)
+            }
+        } catch (e: FirebaseException) {
+            Timber.e(e, "there was an error uploading the new avatar")
         }
     }
 

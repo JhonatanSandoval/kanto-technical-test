@@ -29,4 +29,5 @@
     <string name="hint_biography">Biography</string>
     <string name="error_field_name">Fill with a valid name.</string>
     <string name="error_field_username">Field with a valid username.</string>
+    <string name="select_an_action">Select an action</string>
 </resources>

@@ -1,11 +1,10 @@
 package pro.jsandoval.kantotest.util.ext
 
-import android.annotation.SuppressLint
+import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.os.PowerManager
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.core.app.ActivityCompat
 
 fun Activity.hideKeyboard() {
     if (currentFocus != null) {
@@ -14,11 +13,5 @@ fun Activity.hideKeyboard() {
     }
 }
 
-@SuppressLint("InvalidWakeLockTag")
-fun Activity.lockScreen() {
-    window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-    val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-    val wakeLock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP or PowerManager.FULL_WAKE_LOCK, "Delitel_Repartidor")
-    wakeLock.acquire()
-    wakeLock.release()
-}
+fun Activity.requestCameraPermission(requestCode: Int) =
+    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), requestCode)

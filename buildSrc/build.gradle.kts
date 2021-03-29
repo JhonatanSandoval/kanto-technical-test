@@ -38,4 +38,5 @@ dependencies {
     implementation(kotlin("gradle-plugin", "${project.extra.get("versions.kotlin")}"))
     implementation("com.google.dagger:hilt-android-gradle-plugin:${project.extra.get("versions.hilt")}")
     implementation("androidx.navigation:navigation-safe-args-gradle-plugin:${project.extra.get("versions.navigation")}")
+    implementation("com.google.gms:google-services:4.3.5")
 }

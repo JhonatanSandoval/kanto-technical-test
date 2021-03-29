@@ -12,7 +12,7 @@ import pro.jsandoval.kantotest.data.local.room.entity.UserEntity
 interface UserDao {
 
     @Query("SELECT * FROM ${UserEntity.TABLE_NAME}")
-    fun get(): Flow<UserEntity>
+    fun get(): Flow<UserEntity?>
 
     @Query("SELECT * FROM ${UserEntity.TABLE_NAME}")
     suspend fun getSimple(): UserEntity?
